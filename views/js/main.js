@@ -535,9 +535,23 @@ window.addEventListener('scroll', updatePositions);
 
 // 当页面加载时生成披萨滑窗
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
+  var cols;
+  var rows;  
   var s = 256;
-  var rows = Math.ceil(window.screen.height * window.devicePixelRatio / s);
+  var windowWidth = window.screen.width;
+  var windowHeight = window.screen.height;
+
+  if (windowWidth > windowHeight) {
+    // 横屏时
+    cols = 8;
+    // 用高度除以 mover 元素尺寸得到所需要的行数
+    rows = Math.ceil(windowHeight * window.devicePixelRatio / s);
+  }else{
+    // 竖屏时
+    rows = 8;
+    // 用宽度除以 mover 元素尺寸得到所需要的列数
+    cols = Math.ceil(windowWidth * window.devicePixelRatio / s);
+  }
   
   for (var i = 0; i < cols * rows; i++) {
     var elem = document.createElement('img');
